@@ -4,7 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import Game from "../core/Game";
 import World from "../world/World";
 import Lights from "./Lights";
-
+import PerformanceMonitor from "../utils/PerformanceMonitor";
 
 export default class Application {
     _scene: THREE.Scene;
@@ -24,6 +24,7 @@ export default class Application {
 
     _game: Game;
     _world: World;
+    _performanceMonitor: PerformanceMonitor;
 
     // _postProcessing: PostProcessing;
 
@@ -48,6 +49,8 @@ export default class Application {
 
         this._lights = new Lights(this);
         // this._postProcessing = new PostProcessing(this);
+
+        this._performanceMonitor = new PerformanceMonitor(this);
 
         this._tick();
     }
@@ -139,7 +142,11 @@ export default class Application {
 
         this._controls.update();
 
+        this._performanceMonitor._beginMonitoring();
+
         this._renderer.render(this._scene, this._camera);
+
+        this._performanceMonitor._endMonitoring();
         // this._postProcessing.render();
 
         requestAnimationFrame(this._tick);

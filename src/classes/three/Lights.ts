@@ -12,6 +12,10 @@ export default class Lights {
         this._init();
     }
 
+    _getSun = () => {
+        return this._lights.find(light => light.name === "Sun")!;
+    }
+
     _init = () => {
         this._addTopLight();
         
@@ -21,7 +25,9 @@ export default class Lights {
     _addTopLight = () => {
         const directionalLight = new THREE.DirectionalLight('#fff', 3)
 
-        directionalLight.position.set(-2.25, 5, -4.5)
+        directionalLight.name = "Sun";
+
+        directionalLight.position.set(3, 2, 0)
         directionalLight.intensity = 6;
 
         directionalLight.castShadow = true
@@ -35,7 +41,7 @@ export default class Lights {
 
         this._lights.push(directionalLight);
 
-        const helper = new THREE.DirectionalLightHelper(directionalLight, 1, "red");
-        this._lights.push(helper);
+        // const helper = new THREE.DirectionalLightHelper(directionalLight, 1, "red");
+        // this._lights.push(helper);
     }
 }

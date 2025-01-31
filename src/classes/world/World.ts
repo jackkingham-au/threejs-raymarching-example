@@ -1,19 +1,17 @@
 
 import Application from "../three/Application";
-import Ground from "./Ground";
+import Environment from "./Environment";
 
 export default class World {
     parent: Application;
-    _ground: Ground;
+    _environment: Environment;
 
     constructor(parent: Application) {
         this.parent = parent;
-        this._ground = new Ground(this);
-
-        this.parent._scene.add(this._ground._mesh);
+        this._environment = new Environment(this);
     }
 
     update = (elapsedTime: number) => {
-        
+        this._environment.update(elapsedTime);
     }
 }
