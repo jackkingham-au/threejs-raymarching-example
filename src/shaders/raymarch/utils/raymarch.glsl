@@ -23,7 +23,12 @@ float raymarch(in vec3 rayOrigin, in vec3 rayDirection, out Material material) {
         material.worldPosition = worldPos;
         material.normal = normal;
 
-        if(distanceFromOrigin > MAX_DISTANCE || distanceToScene < MIN_DISTANCE) {
+        if (distanceToScene < MIN_DISTANCE) {
+            material.intersected = true;
+            break;
+        }
+
+        if(distanceFromOrigin > MAX_DISTANCE) {
             break;
         }
     }

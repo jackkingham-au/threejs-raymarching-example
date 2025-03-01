@@ -3,6 +3,7 @@ struct Material {
     vec3 normal;
     vec3 worldPosition;
     float sdf;
+    bool intersected;
 };
 
 Material material() {
@@ -10,7 +11,8 @@ Material material() {
         vec3(0),
         vec3(0),
         vec3(0),
-        0.0
+        0.0,
+        false
     );
 }
 

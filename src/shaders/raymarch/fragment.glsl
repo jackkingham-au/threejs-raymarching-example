@@ -2,6 +2,8 @@ uniform vec2 uResolution;
 uniform vec2 uMouse;
 uniform float uTime;
 
+const vec3 SKY_COLOR = vec3(0.5, 0.7, 1.0);
+
 #include "./utils/raymarch.glsl"
 #include "./utils/lighting.glsl"
 
@@ -16,10 +18,13 @@ void main() {
     Material material = material();
     raymarch(ray.origin, ray.direction, material);
 
-    col = material.color;
-
-    float lighting = getLighting(material);
-    col *= lighting;
+    if(material.intersected) {
+        col = material.color;
+        float lighting = getLighting(material);
+        col *= lighting;
+    } else {
+        col = SKY_COLOR;
+    }
 
     col = linear2gamma(col);
 
