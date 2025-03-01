@@ -1,14 +1,3 @@
-const float EPSILON = 0.01;
-
-vec3 getNormal(in vec3 pos) {
-    float distanceToScene = scene(pos);
-    vec2 epsilon = vec2(EPSILON, 0.);
-
-    vec3 normal = distanceToScene - vec3(scene(pos - epsilon.xyy), scene(pos - epsilon.yxy), scene(pos - epsilon.yyx));
-
-    return normalize(normal);
-}
-
 float diffuseLighting(in vec3 normal, in vec3 lightVector) {
     return clamp(dot(normal, lightVector), 0., 1.);
 }
@@ -23,13 +12,16 @@ float getShadows(
     return distanceToLight < length(lightPosition - pos) ? .1 : 1.;
 }
 
-float getLighting(in vec3 pos) {
+float getLighting(in Material material) {
     vec3 LIGHT_POSITION = vec3(0, 5, 6);
-    vec3 normal = getNormal(pos);
-    vec3 lightVector = normalize(LIGHT_POSITION - pos);
+    vec3 lightVector = normalize(LIGHT_POSITION - material.worldPosition);
 
-    float diffuse = diffuseLighting(normal, lightVector);
-    diffuse *= getShadows(pos, normal, lightVector, LIGHT_POSITION);
+    float diffuse = diffuseLighting(material.normal, lightVector);
+    diffuse *= getShadows(material.worldPosition, material.normal, lightVector, LIGHT_POSITION);
 
     return diffuse;
+}
+
+vec3 linear2gamma( in vec3 color ) {
+    return pow(color, vec3(2.2));
 }
