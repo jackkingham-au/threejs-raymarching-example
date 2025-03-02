@@ -2,8 +2,16 @@
     #define WORLD_UP vec3(0, -1, 0)
 #endif
 
+#ifndef CAMERA_ROTATE 
+    #define CAMERA_ROTATE 0
+#endif
+
 #ifndef CAMERA_ORIGIN
-    #define CAMERA_ORIGIN vec3(7.0 * cos(uTime), 4.0, 7.0 * sin(uTime))
+    #if CAMERA_ROTATE == 1
+        #define CAMERA_ORIGIN vec3(7.0 * cos(uTime), 4.0, 7.0 * sin(uTime))
+    #else
+        #define CAMERA_ORIGIN vec3(7.0, 4.0, 7.0)
+    #endif
 #endif
 
 #ifndef CAMERA_LOOKAT

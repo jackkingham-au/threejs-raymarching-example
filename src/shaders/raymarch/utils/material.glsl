@@ -1,7 +1,7 @@
 struct Material {
     vec3 color;
     vec3 normal;
-    vec3 worldPosition;
+    vec3 worldPos;
     float sdf;
     bool intersected;
 };

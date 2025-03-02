@@ -28,7 +28,7 @@ export default class RaymarchMaterial {
             },
             uSunDirection: {
                 value: new THREE.Vector3()
-            }
+            },
         }
 
         this._material = new THREE.ShaderMaterial({

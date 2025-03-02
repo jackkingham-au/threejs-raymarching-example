@@ -4,6 +4,7 @@ const float MIN_DISTANCE = 0.001;
 
 #include "./scene.glsl"
 #include "./normal.glsl"
+#include "./fog.glsl"
 
 vec3 getWorldPos(in vec3 rayOrigin, in vec3 rayDirection, float distanceFromOrigin) {
     return rayOrigin + rayDirection * distanceFromOrigin;
@@ -20,7 +21,7 @@ float raymarch(in vec3 rayOrigin, in vec3 rayDirection, out Material material) {
         float distanceToScene = material.sdf;
         distanceFromOrigin += distanceToScene;
 
-        material.worldPosition = worldPos;
+        material.worldPos = worldPos;
         material.normal = normal;
 
         if (distanceToScene < MIN_DISTANCE) {
