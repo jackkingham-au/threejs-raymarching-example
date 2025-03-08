@@ -12,7 +12,7 @@ struct Grid {
 
 Grid opRepeat(in vec3 pos, in vec3 space) {
     vec3 id = floor(pos / space);
-    vec3 uv = mod(pos, space) - space * 0.2;
+    vec3 uv = mod(pos, space) - space * 0.5;
 
     return Grid(uv, id);
 }

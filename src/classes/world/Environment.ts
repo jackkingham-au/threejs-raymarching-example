@@ -42,6 +42,14 @@ export default class Environment {
         window.addEventListener("mousemove", (event) => {
             this._material.uniforms.uMouse.value = new THREE.Vector2(event.clientX, event.clientY);
         });
+
+        window.addEventListener("mousedown", () => {
+            this._material.uniforms.uMouseDown.value = true;
+        });
+
+        window.addEventListener("mouseup", () => {
+            this._material.uniforms.uMouseDown.value = false;
+        });
     }
 
     _setCameraUniforms = () => {

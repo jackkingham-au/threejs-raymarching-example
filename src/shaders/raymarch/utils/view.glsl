@@ -1,5 +1,5 @@
 #ifndef WORLD_UP
-    #define WORLD_UP vec3(0, -1, 0)
+    #define WORLD_UP vec3(0, 1, 0)
 #endif
 
 #ifndef CAMERA_ROTATE 
@@ -27,7 +27,7 @@ struct Camera {
 Camera createCamera(in vec2 uv, in vec3 lookAt, in vec3 origin) {
     vec3 forward = normalize(lookAt - origin);
     vec3 right = cross(forward, WORLD_UP);
-    vec3 up = cross(forward, right);
+    vec3 up = cross(right, forward);
 
     vec3 screenCenter = origin + forward;
 

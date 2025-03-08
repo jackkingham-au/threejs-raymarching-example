@@ -1,24 +1,38 @@
-#include "./material.glsl"
-
 #include "./operations.glsl"
 #include "./sdf.glsl"
 
-Material scene( in vec3 pos ) {
+Material tree(in vec3 pos) {
+    Grid grid = opRepeat(pos, vec3(1.75,0,2));
+    pos = grid.localUv;
+
+    Material trunk = material();
+    trunk.sdf = capsuleVerticalSDF(pos, .5, 0.05);
+    trunk.color = vec3(0.757,0.071,0.122);
+
+    Material leaves = material();
+    leaves.sdf = sphereSDF(pos - vec3(0, .5, 0), 0.35);
+    leaves.color = vec3(1, 0.0, 0.0);
+
+    return opUnion(trunk, leaves);
+} 
+
+Material ground(in vec3 pos) {
     Material plane = material();
     plane.sdf = planeSDF(pos);
-    plane.color = vec3(0, 1, 0);
+    plane.color = vec3(0,1,0);
+    plane.sdf -= displacementMap(uGrassDisplacement, pos, vec3(0, 1, 0), plane.sdf, 0.1);
 
-    Material result = plane;
+    plane.id = GRASS_MATERIAL_ID;
 
-    // Grid grid = opRepeat(pos, vec3(4,0,4));
-    // pos = grid.localUv;
+    return plane;
+}
 
-    Material box = material();
-    box.sdf = boxSDF(pos - vec3(0,1, 0), vec3(1));
-    box.color = vec3(1,0,0);
-    // box.color.rg = abs(grid.cellId.rb) * .5;
+Material scene( in vec3 pos ) {
+    Material ground = ground(pos);
 
-    result = opUnion(result, box);
+    Material tree = tree(pos);
 
-    return result;
+    Material result = ground;
+
+    return opUnion(result, tree);
 }

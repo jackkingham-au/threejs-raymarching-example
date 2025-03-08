@@ -1,9 +1,11 @@
 vec3 render(in vec2 uv, in Camera ray, out Material material) {
-    vec3 col = vec3(0);
     float distanceFromOrigin = raymarch(ray.origin, ray.direction, material);
 
+    vec3 col = vec3(0);
+
     if(material.intersected) {
-        col = getLighting(material);
+        material.color = getMaterialTexture(material);
+        col += getLighting(material) * pow(material.color, vec3(4.));
     } else {
         col = SKY_COLOR;
     }
