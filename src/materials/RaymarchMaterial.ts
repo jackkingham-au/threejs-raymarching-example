@@ -17,18 +17,6 @@ export default class RaymarchMaterial {
             uTime: {
                 value: 0
             },
-            uCameraPosition: {
-                value: new THREE.Vector3()
-            },
-            uCameraDirection: {
-                value: new THREE.Vector3()
-            },
-            uSunPosition: {
-                value: new THREE.Vector3()
-            },
-            uSunDirection: {
-                value: new THREE.Vector3()
-            }
         }
 
         this._material = new THREE.ShaderMaterial({

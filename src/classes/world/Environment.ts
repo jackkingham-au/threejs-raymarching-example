@@ -44,32 +44,6 @@ export default class Environment {
         });
     }
 
-    _setCameraUniforms = () => {
-        const { _camera } = this.parent.parent;
-
-        const position = new THREE.Vector3();
-        const direction = new THREE.Vector3();
-
-        _camera.getWorldPosition(position);
-        _camera.getWorldDirection(direction);
-
-        this._material.uniforms.uCameraPosition.value = position;
-        this._material.uniforms.uCameraDirection.value = direction;
-    }   
-
-    _setLightingUniforms = () => {
-        const directionalLight = this.parent.parent._lights._getSun();
-
-        const position = new THREE.Vector3();
-        const direction = new THREE.Vector3();
-
-        directionalLight.getWorldPosition(position);
-        directionalLight.getWorldDirection(direction);
-
-        this._material.uniforms.uSunPosition.value = position;
-        this._material.uniforms.uSunDirection.value = direction;
-    }
-
     debug = () => {
 
     }
@@ -78,9 +52,6 @@ export default class Environment {
         this._material.uniforms.uResolution.value = new THREE.Vector2(window.innerWidth, window.innerHeight);
         this._material.uniforms.uTime.value = _elapsedTime;
         
-        this._setCameraUniforms();
-        this._setLightingUniforms();
-
         const { _renderer, _scene } = this.parent.parent;
 
         _renderer.setRenderTarget(this._renderTarget);
