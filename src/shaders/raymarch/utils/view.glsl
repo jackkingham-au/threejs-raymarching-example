@@ -24,10 +24,20 @@ struct Camera {
     vec3 direction;
 };
 
-Camera createCamera(in vec2 uv, in vec3 lookAt, in vec3 origin) {
-    vec3 forward = normalize(lookAt - origin);
+mat3 lookAt(in vec3 origin, in vec3 target) {
+    vec3 forward = normalize(target - origin);
     vec3 right = cross(forward, WORLD_UP);
     vec3 up = cross(right, forward);
+
+    return mat3(forward, right, up);
+}
+
+Camera createCamera(in vec2 uv, in vec3 target, in vec3 origin) {
+    mat3 viewMatrix = lookAt(origin, target);
+
+    vec3 forward = viewMatrix[0];
+    vec3 right = viewMatrix[1];
+    vec3 up = viewMatrix[2];
 
     vec3 screenCenter = origin + forward;
 
@@ -36,7 +46,7 @@ Camera createCamera(in vec2 uv, in vec3 lookAt, in vec3 origin) {
 
     vec3 direction = normalize(intersectionPoint - origin);
 
-    return Camera(lookAt, origin, direction);
+    return Camera(target, origin, direction);
 }
 
 Camera createCamera(in vec2 uv) {

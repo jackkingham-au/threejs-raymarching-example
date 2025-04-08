@@ -5,9 +5,9 @@ import fragmentShader from "../shaders/raymarch/fragment.glsl";
 const TEXTURE_PATHS = [
     "/tiles/tile-albedo.png",
     "/tiles/tile-height.png",
-
     "/grass/grass-albedo.png",
     "/grass/grass-height.png",
+    "/foliage/foliage-dense.png",
 ]
 
 const MATERIAL_TEXTURES = TEXTURE_PATHS.map((path) => `/assets/textures${path}`);
@@ -33,7 +33,7 @@ export default class RaymarchMaterial {
             uTime: {
                 value: 0
             },
-            uCameraPosition: {
+            uCameraOrigin: {
                 value: new THREE.Vector3()
             },
             uCameraDirection: {
@@ -56,6 +56,9 @@ export default class RaymarchMaterial {
             },
             uGrassDisplacement: {
                 value: this._textures[MATERIAL_TEXTURES[3]]
+            },
+            uFoliageAlpha: {
+                value: this._textures[MATERIAL_TEXTURES[4]]
             }
         }
 

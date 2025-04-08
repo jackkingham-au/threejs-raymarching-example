@@ -16,3 +16,7 @@ float capsuleVerticalSDF(vec3 pos, float height, float radius) {
     pos.y -= clamp(pos.y, 0.0, height);
     return length(pos) - radius;
 }
+
+float quadSDF(in vec3 pos, in float size) {
+    return boxSDF(pos, vec3(.01, size, size));
+}

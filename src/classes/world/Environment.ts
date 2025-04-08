@@ -61,7 +61,7 @@ export default class Environment {
         _camera.getWorldPosition(position);
         _camera.getWorldDirection(direction);
 
-        this._material.uniforms.uCameraPosition.value = position;
+        this._material.uniforms.uCameraOrigin.value = position;
         this._material.uniforms.uCameraDirection.value = direction;
     }   
 

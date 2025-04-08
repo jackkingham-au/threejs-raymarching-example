@@ -108,6 +108,9 @@ export default class Application {
     _setControls = () => {
         this._controls = new OrbitControls(this._camera, this._canvas)
         this._controls.enableDamping = true
+        this._controls.enableZoom = false
+        this._controls.enablePan = false
+
     }
 
     _setWindowResize = () => {

@@ -27,7 +27,6 @@ vec3 linearFog(in vec3 col, in float distanceFromOrigin, in vec3 worldPos) {
 
     float noise = perlin(worldPos) - .5;
     float yPos = worldPos.y + noise;
-    yPos += sin(worldPos.x) * .45;
 
     if (distanceFromOrigin > FOG_NEAR && yPos < 1.) {
         col += linearFog(col, distanceFromOrigin) * .025;    
